@@ -57,7 +57,7 @@ public class Tag {
     }
 
     private void validateTagDescription() throws GenericException {
-        if (StringUtils.isEmpty(tagName)) {
+        if (StringUtils.isEmpty(tagDescription)) {
             throw new GenericException("Tag description cannot be null!!", HttpStatus.BAD_REQUEST);
         }
     }
