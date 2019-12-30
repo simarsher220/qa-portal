@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import org.codejudge.sb.error.exception.GenericException;
 import org.hibernate.annotations.Type;
 import org.springframework.http.HttpStatus;
@@ -17,7 +16,6 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString(doNotUseGetters = true, callSuper = true)
 @Entity
 @Table(name = "tag")
 public class Tag {
@@ -34,9 +32,9 @@ public class Tag {
     @Column(name = "tagDescription")
     private String tagDescription;
 
-    @OneToMany(mappedBy = "question")
+    @OneToMany(mappedBy = "tag")
     @JsonIgnore
-    private Set<QuestionTag> questions = new HashSet<>();
+    private Set<QuestionTag> questionTagSet = new HashSet<>();
 
     public static void validate(Tag tag) throws GenericException {
         if (tag == null) {

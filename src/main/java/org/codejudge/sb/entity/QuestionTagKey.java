@@ -3,9 +3,9 @@ package org.codejudge.sb.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -13,7 +13,6 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString(callSuper = true, doNotUseGetters = true)
 public class QuestionTagKey implements Serializable {
 
     @Column(name = "ques_id")

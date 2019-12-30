@@ -7,17 +7,20 @@ import org.codejudge.sb.error.exception.GenericException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
 @Slf4j
 @Service
+@Transactional(rollbackFor = Exception.class, readOnly = true)
 public class TagService {
 
     @Autowired
     private TagRepository tagRepository;
 
+    @Transactional(rollbackFor = Exception.class, readOnly = false)
     public Tag addTag(Tag tag) throws GenericException {
         Tag tagFromTable = null;
         String tagName = tag.getTagName();
@@ -41,6 +44,10 @@ public class TagService {
 
     public Tag getByTagName(String name) throws GenericException {
         Tag tag = tagRepository.findByTagName(name.toLowerCase());
+        log.info("tag details after get from tagRepository are:- ");
+        log.info("tag id : " + tag.getId());
+        log.info("tag name : " + tag.getTagName());
+        log.info("total tagged questions : " + tag.getQuestionTagSet().size());
         if (tag == null) {
             throw new GenericException("No Tags Found!!", HttpStatus.NOT_FOUND);
         }
@@ -55,6 +62,7 @@ public class TagService {
         return tag;
     }
 
+    @Transactional(rollbackFor = Exception.class, readOnly = false)
     public Tag saveAndFlush(Tag tag) {
         return tagRepository.saveAndFlush(tag);
     }

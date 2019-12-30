@@ -3,14 +3,12 @@ package org.codejudge.sb.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 
 @Setter
 @Getter
 @NoArgsConstructor
-@ToString(doNotUseGetters = true, callSuper = true)
 @Entity
 @Table(name = "question_tag")
 public class QuestionTag {
@@ -19,13 +17,13 @@ public class QuestionTag {
     private QuestionTagKey key;
 
     @ManyToOne
-    @MapsId("quesId")
-    @JoinColumn(name = "ques_id", referencedColumnName = "id")
+    @MapsId("ques_id")
+    @JoinColumn(name = "ques_id")
     private Question question;
 
     @ManyToOne
-    @MapsId("tagId")
-    @JoinColumn(name = "tag_id", referencedColumnName = "id")
+    @MapsId("tag_id")
+    @JoinColumn(name = "tag_id")
     private Tag tag;
 
     public QuestionTag(Question question, Tag tag) {
@@ -33,7 +31,7 @@ public class QuestionTag {
         this.question = question;
         this.tag = tag;
 
-        question.getTags().add(this);
-        tag.getQuestions().add(this);
+        question.getQuestionTagSet().add(this);
+        tag.getQuestionTagSet().add(this);
     }
 }

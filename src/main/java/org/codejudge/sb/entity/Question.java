@@ -17,7 +17,6 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString(callSuper = true, doNotUseGetters = true)
 @Entity
 @Table(name = "question")
 public class Question {
@@ -41,9 +40,9 @@ public class Question {
     @Column(name = "views")
     private Integer views;
 
-    @OneToMany(mappedBy = "tag")
+    @OneToMany(mappedBy = "question")
     @JsonIgnore
-    private Set<QuestionTag> tags = new HashSet<>();
+    private Set<QuestionTag> questionTagSet = new HashSet<>();
 
     public static void validate(Question question) throws GenericException {
         if (null == question) {
